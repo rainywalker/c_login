@@ -5,8 +5,8 @@
   "author": "jaelomin <rainywalker@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/app.js",
-    "dev" : "pm2 start src/app.js --watch"
+    "start": "NODE_PATH=src node ./src/app.js",
+    "dev" : "NODE_PATH=src pm2 start ./src/app.js --watch && pm2 logs app"
   },
   "dependencies": {
     "dotenv": "^5.0.1",

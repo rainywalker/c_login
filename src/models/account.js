@@ -11,7 +11,7 @@ const crypto = require('crypto');
  */
 const salt = (pw) => {
     return crypto.randomBytes(64, (err, buf) => {
-        return crypto.pbkdf2(process.env.SECRET_KEY,buf.toString('base64'), 100000, 64,'sha512', (err, key) => key.toString('base64');
+        return crypto.pbkdf2(process.env.SECRET_KEY,buf.toString('base64'), 100000, 64,'sha512', (err, key) => key.toString('base64'));
     })
 }
 
