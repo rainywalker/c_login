@@ -10,8 +10,8 @@ const crypto = require('crypto');
  *
  */
 const salt = (pw) => {
-    return crypto.randomBytes(64, (err, buf) => {
-        return crypto.pbkdf2(process.env.SECRET_KEY,buf.toString('base64'), 100000, 64,'sha512', (err, key) => key.toString('base64'));
+    crypto.randomBytes(64, (err, buf) => {
+        return crypto.pbkdf2(pw,buf.toString('base64'), 100000, 64,'sha512', (err, key) => key.toString('base64'));
     })
 }
 
@@ -51,5 +51,16 @@ const Account = new Schema({
     }
 });
 
+
+Account.statics.signup = function({username, email, password}){
+    const account = new this({
+        profile: {
+            username
+        },
+        email,
+        password : salt(password)
+    })
+    return account.save();
+}
 
 module.exports = mongoose.model('Account', Account);
