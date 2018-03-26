@@ -20,4 +20,9 @@ npm install | yarn
 - email :  string,
 - password : string
 
+>POST
 
+#### /api/auth/sigin
+
+- email :  string,
+- password : string

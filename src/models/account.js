@@ -52,6 +52,47 @@ const Account = new Schema({
 });
 
 
+/**
+ *
+ * @param username
+ * @returns {Promise}
+ */
+Account.statics.findByUsername = function (username) {
+    return this.findOne({'profile.username' : username}).exec();
+};
+
+/**
+ *
+ * @param email
+ * @returns {Promise}
+ */
+Account.statics.findByEmail = function (email) {
+    return this.findOne({email}).exec()
+};
+
+
+/**
+ *
+ * @param username
+ * @param email
+ * @returns {Promise}
+ */
+Account.statics.findByEmailOrUsername = function({username, email}) {
+    return this.findOne({
+        $or : [
+            {'profile.username' : username},
+            {email}
+        ]
+    }).exec()
+};
+
+
+/**
+ *
+ * @param username
+ * @param email
+ * @param password
+ */
 Account.statics.signup = function({username, email, password}){
     const account = new this({
         profile: {
@@ -61,6 +102,17 @@ Account.statics.signup = function({username, email, password}){
         password : salt(password)
     })
     return account.save();
-}
+};
+
+
+/**
+ *
+ * @param password
+ * @returns {boolean}
+ */
+Account.methods.validatePassword = function (password) {
+    const salted = salt(password);
+    return this.password === salted;
+};
 
 module.exports = mongoose.model('Account', Account);
