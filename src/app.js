@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 const app = new Koa();
 const router = new Router();
 const api = require('./api');
+const {jwtMiddleware} = require('./lib/token');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.mongo_URI)
@@ -19,6 +20,7 @@ mongoose.connect(process.env.mongo_URI)
 
 app.use(logger());
 app.use(bodyParser())
+app.use(jwtMiddleware)
 router.use('/api', api.routes())
 app.use(router.routes()).use(router.allowedMethods)
 

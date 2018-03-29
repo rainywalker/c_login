@@ -88,16 +88,16 @@ const registerObj = {
 
         const {email, password} = ctx.request.body;
 
-        let accout = null;
+        let account = null;
 
         try {
-            accout = await Account.findByEmail(email)
+            account = await Account.findByEmail(email)
         }
         catch(e) {
             ctx.throw(500,e)
         }
 
-        if (!accout || !accout.validatePassword(password)) {
+        if (!account || !account.validatePassword(password)) {
             ctx.status = 403;
             return
         }
@@ -110,7 +110,7 @@ const registerObj = {
         }
 
         ctx.cookies.set('access_token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 });
-        ctx.body = accout.profile
+        ctx.body = account.profile
     },
     /**
      *
@@ -142,6 +142,15 @@ const registerObj = {
             httpOnly : true
         });
         ctx.status = 204;
+    },
+    check : ctx => {
+        const { user } = ctx.request;
+
+        if(!user) {
+            ctx.status = 403;
+            return
+        }
+        ctx.body = user.profile;
     }
 }
 
