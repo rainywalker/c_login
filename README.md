@@ -6,23 +6,59 @@ __MognoDB is required__
 ## Installation
 
 ```
-fork this repo | clone the repo 
+fork this repo | clone the repo
 npm install | yarn
 ```
 
 ## API
 
->POST  
+>회원가입
 
-#### /api/auth/signup
+|         |                                             |
+|:---------:|---------------------------------------------|
+| **POST** | /api/auth/signup |
 
-- username : string,
-- email :  string,
-- password : string
 
->POST
+* Body
+  - username : string,
+  - email :  string,
+  - password : string
 
-#### /api/auth/sigin
+>로그인
 
-- email :  string,
-- password : string
+|         |                                             |
+|:---------:|---------------------------------------------|
+| **POST** | /api/auth/sigin |
+
+* Body
+  - email :  string,
+  - password : string
+
+>로그아웃
+
+|         |                                             |
+|:---------:|---------------------------------------------|
+| **POST** | /api/auth/signout |
+
+
+* Body
+  - email :  string,
+  - password : string
+
+>유저 중복 체크
+
+|         |                                             |
+|:---------:|---------------------------------------------|
+| **GET** | /api/auth/exists/{username or email}/{value}   
+
+
+
+
+>로그인 유무 체크
+
+|           |                    |
+|:---------:|--------------------|
+| **GET**   | /api/auth/check    |
+
+
+ 

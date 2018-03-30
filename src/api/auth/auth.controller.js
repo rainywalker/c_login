@@ -31,6 +31,11 @@ const registerObj = {
             return;
         }
 
+        /**
+         *
+         * @type {null}
+         *  username email 중복처리
+         */
         let existing = null;
 
         try {
@@ -45,9 +50,14 @@ const registerObj = {
             ctx.body = {
                 key : existing.email === ctx.request.body.email ? 'email' : 'username'
             }
+            return;
         }
 
-
+        /**
+         *
+         * @type {null}
+         * @description 계정생성
+         */
 
         let account = null;
         try {
@@ -56,6 +66,11 @@ const registerObj = {
             ctx.throw(500, e);
         }
 
+        /**
+         *
+         * @type {null}
+         * @description 토큰 생성
+         */
         let token = null;
         try {
             token = await account.generateToken();
@@ -143,7 +158,7 @@ const registerObj = {
         });
         ctx.status = 204;
     },
-    check : ctx => {
+    loginCheck : ctx => {
         const { user } = ctx.request;
 
         if(!user) {
