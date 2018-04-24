@@ -21,7 +21,7 @@ const registerObj = {
         const schema = Joi.object().keys({
             username: Joi.string().alphanum().min(4).max(15).required(),
             email: Joi.string().email().required(),
-            password: Joi.string().required().min(6)
+            password: Joi.string().required().min(4)
         });
 
         const result = Joi.validate(ctx.request.body, schema);
