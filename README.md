@@ -41,9 +41,6 @@ npm install | yarn
 | **POST** | /api/auth/signout |
 
 
-* Body
-  - email :  string,
-  - password : string
 
 >유저 중복 체크
 
